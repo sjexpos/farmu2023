@@ -1,0 +1,95 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  error:
+    include-stacktrace: never
+    include-message: always
+    include-exception: true
+    include-binding-errors: always
+
+spring:
+  application:
+    name: url-shortener-service
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true
+      use-key-prefix: true
+      key-prefix: CAN-USER-MS
+      time-to-live: 5000
+  redis:
+    host: localhost
+    port: 6379
+    ssl: false
+    timeout: 1000
+  datasource:
+    host: localhost
+    port: 5432
+    schemaName: farmu_url_shortener
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.schemaName}?serverTimezone=UTC
+    driver-class-name: org.postgresql.Driver
+    username: url_shortener_service
+    password: 1234
+  jpa:
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          factory_class: org.redisson.hibernate.RedissonRegionFactory
+          redisson:
+            fallback: true
+            config: redisson-dev.yaml
+
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: info, health, httptrace, loggers, metrics, threaddump
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+  info:
+    git:
+      mode: full
+
+springdoc:
+  show-actuator: false
+  show-login-endpoint: false
+  api-docs:
+    path: /openapiv3
+  swagger-ui:
+    path: /api-docs.html
+    operationsSorter: method
+    disable-swagger-default-url: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+#    org.hibernate.internal: TRACE
+#    org.springframework.orm.jpa: DEBUG
+#    org.springframework.transaction: DEBUG
+#    org.springframework.transaction.interceptor: TRACE
+#    org.springframework.jdbc: DEBUG
+  pattern:
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5p) [%clr(%18.18t){faint}] %clr(%40.40logger{5.10}:%-4L){cyan} : %m %n'
+
+farmu:
+  interview:
+    termsOfService: https://www.farmu.com.co/
+    license: https://www.farmu.com.co/
+    service:
+      urlshortener:
+        name: Farmu Interview 2023
+        version: ${project.version}

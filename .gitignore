@@ -1,5 +1,13 @@
 # Compiled class file
 *.class
+target
+**/target
+.classpath
+.project
+**/.classpath
+**/.project
+/.vscode
+**/.vscode
 
 # Log file
 *.log
