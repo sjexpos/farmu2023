@@ -5,11 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.farmu.interview.service.urlshortener.domain.State;
+import com.farmu.interview.service.urlshortener.domain.ShortUrl;
 
 @Repository
-public interface StateJpaRepository extends JpaRepository<State, Long>, StateRepository {
+public interface ShortUrlJpaRepository extends JpaRepository<ShortUrl, Long>, ShortUrlRepository {
 
     @Override
-    Page<State> findAll(Pageable pageable);
+    Page<ShortUrl> findAll(Pageable pageable);
 }

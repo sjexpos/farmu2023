@@ -15,17 +15,4 @@ public interface Auditable {
     String getModifiedBy();
     void setModifiedBy(String modifiedBy);
 
-    LocalDateTime getDeletedAt();
-    void setDeletedAt(LocalDateTime deletedAt);
-    String getDeletedBy();
-    void setDeletedBy(String deletedBy);
-
-    default boolean isDeleted() {
-        return getDeletedAt() != null;
-    }
-
-    public default void delete() {
-        setDeletedAt(LocalDateTime.now());
-    }
-
 }

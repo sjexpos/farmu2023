@@ -47,10 +47,6 @@ public class ApplicationReadyInitializer implements ApplicationListener<Applicat
         String password = environment.getProperty("spring.datasource.password", "");
         password = password.substring(0, 1) + StringUtils.repeat("*", password.length()-2) + password.substring(password.length()-1);
         log.info("Password: {}", password);
-		log.info("-------------------- Elasticsearch ----------------------");
-		log.info("Type: {}", environment.getProperty("spring.jpa.properties.hibernate.search.backend.type"));
-        log.info("Hosts: {}", environment.getProperty("spring.jpa.properties.hibernate.search.backend.hosts"));
-        log.info("Protocol: {}", environment.getProperty("spring.jpa.properties.hibernate.search.backend.protocol"));
 		log.info("------------------------ Redis --------------------------");
         log.info("Redisson config: {}", environment.getProperty("spring.jpa.properties.hibernate.cache.redisson.config"));
 		new ConfigPrinter().print(log, environment.getProperty("spring.jpa.properties.hibernate.cache.redisson.config"));

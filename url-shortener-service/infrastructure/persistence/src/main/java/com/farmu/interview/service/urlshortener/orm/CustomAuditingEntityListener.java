@@ -8,8 +8,6 @@ import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import com.farmu.interview.service.urlshortener.domain.Auditable;
-
 @Component
 public class CustomAuditingEntityListener {
     private ObjectFactory<AuditingHandler> handler; 
@@ -36,9 +34,6 @@ public class CustomAuditingEntityListener {
 			AuditingHandler object = handler.getObject();
 			if (object != null) {
 				object.markModified(target);
-                if (Auditable.class.isAssignableFrom(target.getClass()) && ((Auditable)target).isDeleted() && ((Auditable)target).getDeletedBy() == null) {
-                    ((Auditable)target).setDeletedBy( ((Auditable)target).getModifiedBy() );
-                }
 			}
 		}
 	}

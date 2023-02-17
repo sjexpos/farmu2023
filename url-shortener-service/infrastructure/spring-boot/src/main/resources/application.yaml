@@ -27,7 +27,7 @@ spring:
   datasource:
     host: localhost
     port: 5432
-    schemaName: farmu_url_shortener
+    schemaName: farmu_shortener
     url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.schemaName}?serverTimezone=UTC
     driver-class-name: org.postgresql.Driver
     username: url_shortener_service

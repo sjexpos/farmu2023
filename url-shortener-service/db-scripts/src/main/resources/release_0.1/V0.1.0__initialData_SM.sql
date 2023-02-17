@@ -5,9 +5,7 @@ CREATE TABLE "url" (
     "created_at"  timestamp NOT NULL DEFAULT (now()),
     "created_by"  varchar,
     "modified_at" timestamp,
-    "modified_by" varchar,
-    "deleted_at"  timestamp,
-    "deleted_by"  varchar
+    "modified_by" varchar
 );
 
 GRANT ALL PRIVILEGES ON DATABASE ${flyway:database} TO url_shortener_service;
