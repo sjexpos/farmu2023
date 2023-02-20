@@ -9,6 +9,10 @@ import java.util.Optional;
 
 public interface ShortUrlRepository extends GenericRepository<ShortUrl, Long> {
 
+    ShortUrl save(ShortUrl shortUrl);
+    
+    void delete(ShortUrl shortUrl);
+
     Optional<ShortUrl> findById(long id);
 
     Optional<ShortUrl> findByKey(String key);

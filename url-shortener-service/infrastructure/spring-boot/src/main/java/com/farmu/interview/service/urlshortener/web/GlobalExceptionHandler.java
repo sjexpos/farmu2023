@@ -8,7 +8,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
-import com.farmu.interview.service.urlshortener.api.model.CommonErrorHandlerResponse;
+import com.farmu.interview.service.urlshortener.api.data.CommonErrorHandlerResponse;
+import com.farmu.interview.service.urlshortener.api.exception.NotFoundApiException;
 import com.farmu.interview.service.urlshortener.exception.DomainException;
 
 import org.slf4j.Logger;
@@ -90,9 +91,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 	}	
 	
-	@ExceptionHandler(DomainException.class)
-	public ResponseEntity<Object> handleDomainException(DomainException ex, HttpServletRequest request) {
-		return customHandleException(HttpStatus.BAD_REQUEST, ex, request);
+	@ExceptionHandler(NotFoundApiException.class)
+	public ResponseEntity<Object> handleNotFoundApiException(NotFoundApiException ex, HttpServletRequest request) {
+		return customHandleException(HttpStatus.NOT_FOUND, ex, request);
 	}
 
 }

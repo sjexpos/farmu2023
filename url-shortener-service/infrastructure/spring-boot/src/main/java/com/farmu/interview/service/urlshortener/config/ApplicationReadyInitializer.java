@@ -29,7 +29,7 @@ public class ApplicationReadyInitializer implements ApplicationListener<Applicat
 	public void onApplicationEvent(ApplicationReadyEvent event) {
         log.info("");
         log.info("********************************************************************");
-		log.info(" USERS SERVICE STARTED");
+		log.info(" URL SHORTENER SERVICE STARTED");
         log.info("********************************************************************");
 		log.info("Default Charset: {}", Charset.defaultCharset());
 		log.info("File Encoding:   {}", System.getProperty("file.encoding"));
@@ -50,6 +50,10 @@ public class ApplicationReadyInitializer implements ApplicationListener<Applicat
 		log.info("------------------------ Redis --------------------------");
         log.info("Redisson config: {}", environment.getProperty("spring.jpa.properties.hibernate.cache.redisson.config"));
 		new ConfigPrinter().print(log, environment.getProperty("spring.jpa.properties.hibernate.cache.redisson.config"));
+		log.info("---------------------- App config -----------------------");
+        log.info("Name:    {}", environment.getProperty("farmu.interview.service.urlshortener.name"));
+        log.info("Version: {}", environment.getProperty("farmu.interview.service.urlshortener.version"));
+        log.info("Domain:  {}", environment.getProperty("farmu.interview.service.urlshortener.domain"));
         log.info("********************************************************************");
         log.info("");
 	}

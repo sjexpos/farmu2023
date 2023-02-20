@@ -8,6 +8,7 @@ target
 **/.project
 /.vscode
 **/.vscode
+.data
 
 # Log file
 *.log

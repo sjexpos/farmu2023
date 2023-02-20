@@ -2,22 +2,28 @@
 server:
   port: 8080
   servlet:
-    context-path: /api
+    context-path: /
   error:
     include-stacktrace: never
     include-message: always
     include-exception: true
     include-binding-errors: always
-
+    whitelabel:
+      enabled: false
+    path: /error
+    
 spring:
   application:
     name: url-shortener-service
+  mvc:
+    servlet:
+      path: /
   cache:
     type: redis
     redis:
       cache-null-values: true
       use-key-prefix: true
-      key-prefix: CAN-USER-MS
+      key-prefix: FARMU-URL-SHORTENER-MS
       time-to-live: 5000
   redis:
     host: localhost
@@ -93,3 +99,4 @@ farmu:
       urlshortener:
         name: Farmu Interview 2023
         version: ${project.version}
+        domain: http://localhost:8080

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.util.StringUtils;
 import org.hibernate.annotations.Cache;
 
 import java.time.LocalDateTime;
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "url")
-@Cache(region = "urlCache", usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "short_url")
+@Cache(region = "shortUrlCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +30,8 @@ public class ShortUrl extends DomainEntity implements Auditable {
     private Long id;
     @Column(name = "key")
     private String key;
-    @Column(name = "url")
-    private String url;
+    @Column(name = "destination")
+    private String destination;
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -43,5 +44,12 @@ public class ShortUrl extends DomainEntity implements Auditable {
     @LastModifiedBy
     @Column(name = "modified_by")
     private String modifiedBy;
+
+    public String getUrl(String baseDomain, String dispatcherContext) {
+        return new StringBuilder(baseDomain)
+                .append(StringUtils.hasText(dispatcherContext) ? dispatcherContext : "")
+                .append("/")
+                .append(this.key).toString();
+    }
 
 }
