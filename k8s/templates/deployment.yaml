@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-shortener-service
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    buildNumber: "1.0"
+spec:
+  selector:
+    matchLabels:
+      app: url-shortener-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: url-shortener-service
+      annotations:
+        buildNumber: "1.0"
+    spec:
+      containers:
+        - name: url-shortener-service
+          image: {{ .Values.url_shortener_service_image }}
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 7001
+            initialDelaySeconds: 5
+          ports:
+            - containerPort: 7001
+          env:
+            - name: PORT
+              value: "7001"
+            - name: DATABASE_HOST
+              value: "db-url-shortener-service"
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_SCHEMA
+              value: "{{ .Values.url_shortener_service_database_schema }}"
+            - name: DATABASE_USER
+              value: "{{ .Values.url_shortener_service_database_user }}"
+            - name: DATABASE_PASSWORD
+              value: "{{ .Values.url_shortener_service_database_password }}"
+            - name: REDIS_HOST
+              value: "redis-service"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: SHORTENER_DOMAIN
+              value: "{{ .Values.url_shortener_service_domain }}"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-resizer-service
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    buildNumber: "1.0"
+spec:
+  selector:
+    matchLabels:
+      app: image-resizer-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: image-resizer-service
+      annotations:
+        buildNumber: "1.0"
+    spec:
+      containers:
+        - name: image-resizer-service
+          image: {{ .Values.image_resizer_service_image }}
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 7002
+            initialDelaySeconds: 5
+          ports:
+            - containerPort: 7002
+          env:
+            - name: PORT
+              value: "7002"
+

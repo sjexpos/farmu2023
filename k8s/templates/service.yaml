@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db-url-shortener-service
+  name: db-url-shortener-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  externalName: {{ .Values.url_shortener_service_database_host }}
+  selector:
+    app: db-url-shortener-service
+  type: ExternalName
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-service
+  name: redis-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  externalName: {{ .Values.redis_host_name }}
+  selector:
+    app: redis-service
+  type: ExternalName
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: url-shortener-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: url-shortener-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-resizer-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: image-resizer-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7002
+

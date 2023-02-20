@@ -1,0 +1,14 @@
+
+url_shortener_service_image: farmu/url-shortener:1.0-SNAPSHOT
+url_shortener_service_database_host: 
+url_shortener_service_database_schema: farmu_shortener
+url_shortener_service_database_user: url_shortener_service
+url_shortener_service_database_password: "12345678"
+url_shortener_service_ingress_host: shortener.dev.farmu-services.io
+url_shortener_service_domain: https://urlshortener.dev.farmu.com.co
+
+image_resizer_service_image: farmu/image-resizer:1.0-SNAPSHOT
+image_resizer_service_ingress_host: resizer.dev.farmu-services.io
+
+redis_host_name: 
+

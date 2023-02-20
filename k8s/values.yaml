@@ -1,0 +1,14 @@
+
+url_shortener_service_image: default
+url_shortener_service_database_host: default
+url_shortener_service_database_schema: default
+url_shortener_service_database_user: default
+url_shortener_service_database_password: "default"
+url_shortener_service_ingress_host: default
+url_shortener_service_domain: default
+
+image_resizer_service_image: default
+image_resizer_service_ingress_host: default
+
+redis_host_name: default
+

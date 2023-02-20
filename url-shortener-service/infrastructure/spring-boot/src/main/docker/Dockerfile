@@ -9,6 +9,7 @@ MAINTAINER Sergio Exposito <sergio.exposito@teracode.com>
 # ENV DATABASE_PASSWORD    <postgres password>
 # ENV REDIS_HOST           <redis server host name>
 # ENV REDIS_PORT           <redis server port>
+# ENV SHORTENER_DOMAIN     <url shortener domain>
 
 ADD maven/${project.build.finalName}.jar /opt/${project.build.finalName}.jar
 
@@ -41,6 +42,7 @@ RUN echo "#!/usr/bin/env bash" > /opt/entrypoint.sh && \
         -Dspring.datasource.username=\$DATABASE_USER \
         -Dspring.datasource.password=\$DATABASE_PASSWORD \
         -Dspring.jpa.properties.hibernate.cache.redisson.config=/opt/redisson.yaml \
+        -Dfarmu.interview.service.urlshortener.domain=\$SHORTENER_DOMAIN \
         -jar /opt/${project.build.finalName}.jar" >> /opt/entrypoint.sh
 
 RUN chmod 755 /opt/entrypoint.sh
