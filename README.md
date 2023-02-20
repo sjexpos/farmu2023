@@ -32,12 +32,17 @@ mvn install
 cd image-resizer-service
 mvn install
 ```
+Both services must be compiled before you run docker compose because it uses images to run each service.
 
 **Run**
 
 ```
 docker-compose up
 ```
+
+**Swagger**
+
+When docker compose has started up, if you write http://localhost:8080/swagger-ui/index.html# in your browser you will access to Swagger.
 
 **Run component, except `component`:**
 
